@@ -15,10 +15,10 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: .center,
           children: [
             TextButton(
-                onPressed: (){
-                  uploadPdf();
-                },
-                child: const Text("Upload PDF"),
+              onPressed: () {
+                uploadPdf();
+              },
+              child: const Text("Upload PDF"),
             ),
           ],
         ),
@@ -37,18 +37,18 @@ class HomeScreen extends StatelessWidget {
         String fileName = file.path.split('/').last;
 
         FormData data = FormData.fromMap({
-          'x-api-key': 'rathoreaniket70@gmail.com_VDoaEQaaiVs3Fj5lNIQ9UB1oL1K0AOsxO2U4eHSRURA6dneeickbwuSfUzIelI8o',
-          'file': await MultipartFile.fromFile(
-            file.path,
-            filename: fileName,
-          ),
+          'x-api-key':
+              'rathoreaniket70@gmail.com_VDoaEQaaiVs3Fj5lNIQ9UB1oL1K0AOsxO2U4eHSRURA6dneeickbwuSfUzIelI8o',
+          'file': await MultipartFile.fromFile(file.path, filename: fileName),
         });
 
         var response = await dio.post(
           "https://api.pdf.co/v1/file/upload",
           data: data,
           onSendProgress: (int sent, int total) {
-            print('Progress: ${((sent / total) * 100).toStringAsFixed(2)}% ($sent/$total)');
+            print(
+              'Progress: ${((sent / total) * 100).toStringAsFixed(2)}% ($sent/$total)',
+            );
           },
         );
 
@@ -67,7 +67,6 @@ class HomeScreen extends StatelessWidget {
           print('Upload failed with status: ${response.statusCode}');
           print('Error: ${response.data}');
         }
-
       } else {
         print("File selection cancelled or no file selected");
       }
